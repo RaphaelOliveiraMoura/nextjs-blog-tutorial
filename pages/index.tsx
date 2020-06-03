@@ -1,3 +1,4 @@
+import { FC } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -18,7 +19,15 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ allPostsData }) {
+interface Props {
+  allPostsData: {
+    id: string;
+    title: string;
+    date: string;
+  }[];
+}
+
+const Home: FC<Props> = ({ allPostsData }) => {
   return (
     <Layout home>
       <Head>
@@ -49,4 +58,6 @@ export default function Home({ allPostsData }) {
       </section>
     </Layout>
   );
-}
+};
+
+export default Home;

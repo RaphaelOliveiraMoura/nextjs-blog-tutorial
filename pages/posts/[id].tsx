@@ -1,3 +1,4 @@
+import { FC } from "react";
 import Head from "next/head";
 
 import Layout from "../../components/layout";
@@ -24,7 +25,16 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function Post({ postData }) {
+interface Props {
+  postData: {
+    id: string;
+    title: string;
+    date: string;
+    contentHtml: string;
+  };
+}
+
+const Post: FC<Props> = ({ postData }) => {
   return (
     <Layout>
       <Head>
@@ -39,4 +49,6 @@ export default function Post({ postData }) {
       </article>
     </Layout>
   );
-}
+};
+
+export default Post;
