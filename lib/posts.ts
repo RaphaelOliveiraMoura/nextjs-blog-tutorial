@@ -6,8 +6,14 @@ import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
+interface PostMetadata {
+  title: string;
+  date: string;
+}
+
 export function getSortedPostsData() {
   const fileNames = fs.readdirSync(postsDirectory);
+
   const allPostsData = fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, "");
 
@@ -18,7 +24,7 @@ export function getSortedPostsData() {
 
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as PostMetadata),
     };
   });
 
@@ -43,7 +49,7 @@ export function getAllPostIds() {
   });
 }
 
-export async function getPostData(id) {
+export async function getPostData(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
@@ -57,6 +63,6 @@ export async function getPostData(id) {
   return {
     id,
     contentHtml,
-    ...matterResult.data,
+    ...(matterResult.data as PostMetadata),
   };
 }

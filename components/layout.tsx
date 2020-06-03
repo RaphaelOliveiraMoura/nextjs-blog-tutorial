@@ -1,3 +1,4 @@
+import { FC } from "react";
 import Head from "next/head";
 import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
@@ -6,7 +7,11 @@ import Link from "next/link";
 const name = "Raphael de Oliveira";
 export const siteTitle = "Next.js";
 
-export default function Layout({ children, home }) {
+interface Props {
+  home?: Boolean;
+}
+
+const Layout: FC<Props> = ({ children, home = false }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -63,4 +68,6 @@ export default function Layout({ children, home }) {
       )}
     </div>
   );
-}
+};
+
+export default Layout;
